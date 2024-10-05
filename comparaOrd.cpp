@@ -13,9 +13,9 @@ void imprimirArreglo(int[],int);
 
 int main() {
 	int op;
-	int n=100;
+	int long n=200000;
 	srand(time(0));
-	const int tamMax=10000;
+	const int long tamMax=200000;
 	int arr[tamMax];
 	int copy[tamMax];
 	auto inicio=chrono::high_resolution_clock::now(); //inicio
@@ -28,6 +28,7 @@ int main() {
 	cout<<endl<<"Tiempo de ejecucion: "<<duracion.count();
 	
 	do {
+		copia(arr,copy,n);
 		cout<<endl<<"\tCOMPARACION DE EFICIENCIA\n"
 			<<"1. Insercion directa"<<endl
 			<<"2. Shell sort"<<endl
@@ -35,14 +36,10 @@ int main() {
 		cout<<"Elija una opcion: "; cin>>op;
 		switch (op) {
 			case 1:
-				copia(arr,copy,n);
 				InsercionDir(copy,n);
-				imprimirArreglo(copy,n);
 				break;
 			case 2:
-				copia(arr,copy,n);
 				ShellSort(copy,n-1);
-				imprimirArreglo(copy,n);
 				break;
 			case 3:
 				cout<<"Saliendo del programa..."<<endl;
@@ -63,6 +60,7 @@ void copia(int A[],int copy[],int n) {
 }
 
 void InsercionDir(int A[],int n) {
+	auto inicio=chrono::high_resolution_clock::now(); //inicio
 	for (int i=1;i<n;i++) {
 	int aux=A[i];
 	int k=i-1;
@@ -72,9 +70,14 @@ void InsercionDir(int A[],int n) {
 		}
 		A[k+1]=aux;
 	}
+	auto fin=chrono::high_resolution_clock::now(); //fin
+	chrono::duration<double> duracion=fin-inicio;
+	imprimirArreglo(A,n);
+	cout<<endl<<"Tiempo de ejecucion: "<<duracion.count()<<endl;
 }
 
 void ShellSort(int A[],int n) {
+	auto inicio=chrono::high_resolution_clock::now(); //inicio
 	int k=n+1;
 	while (k>1) {
 		k/=2;
@@ -93,8 +96,11 @@ void ShellSort(int A[],int n) {
 			}
 		}
 	}
+	auto fin=chrono::high_resolution_clock::now(); //fin
+	chrono::duration<double> duracion=fin-inicio;
+	imprimirArreglo(A,n);
+	cout<<endl<<"Tiempo de ejecucion: "<<duracion.count()<<endl;
 }
-
 
 void imprimirArreglo(int arr[],int n) {
 	cout<<endl<<"Elementos del arreglo:\n";
